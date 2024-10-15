@@ -13,7 +13,7 @@
 import { ref } from 'vue';
 
 const clientId = ref(process.env.VUE_APP_CLIENT_ID); // Almacenará el Client ID recibido del servidor
-const redirectUri = 'https://localhost:8081/productos'; 
+const redirectUri = 'https://amazon-sp-api-sand.vercel.app/productos'; 
 const scope = 'profile'; // Ajusta el scope según tus necesidades
 
 // Función para obtener las credenciales del servidor

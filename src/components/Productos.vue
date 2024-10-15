@@ -12,7 +12,7 @@ import { ref, onMounted } from 'vue';
 const route = useRoute();
 const clientId = ref(process.env.VUE_APP_CLIENT_ID); 
 const clientSecret = ref(process.env.VUE_APP_SECRET_KEY);
-const redirectUri = 'https://localhost:8081/productos';
+const redirectUri = 'https://amazon-sp-api-sand.vercel.app/productos';
 
 /*const fetchCredentials = async () => {
    try {
