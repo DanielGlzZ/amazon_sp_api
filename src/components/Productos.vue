@@ -12,20 +12,31 @@ import { ref, onMounted } from 'vue';
 const route = useRoute();
 const clientId = ref(process.env.VUE_APP_CLIENT_ID); 
 const clientSecret = ref(process.env.VUE_APP_SECRET_KEY);
+const refreshToken = ref(process.env.VUE_APP_REFRESH_TOKEN);
 const redirectUri = 'https://amazon-sp-api-sand.vercel.app/productos';
 
-/*const fetchCredentials = async () => {
+const authAmazon = async () => {
+   const params = new URLSearchParams();
+   params.append('grant_type', 'refresh_token'); 
+   params.append('client_id', clientId.value); 
+   params.append('client_secret', clientSecret.value); 
+   params.append('refresh_token', refreshToken.value);
+
    try {
-      const response = await axios.get('http://localhost:3000/credenciales');
-      clientId.value = response.data.clientID; // Asigna el Client ID recibido
-      clientSecret.value = response.data.clientSecret;
+      const response = await axios.post('https://api.amazon.com/auth/o2/token', params.toString(), {
+         headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+         }
+      });
+      console.log(response.data); 
    } catch (error) {
       console.error('Error al obtener las credenciales:', error);
    }
-};*/
+};
 
 onMounted(async () => {
    //await fetchCredentials();
+   await authAmazon();
    let code;  // Captura el código de la URL
    if (route.query.code) {
       code = route.query.code;
