@@ -29,6 +29,7 @@ const authAmazon = async () => {
          }
       });
       console.log(response.data); 
+      console.log("Cambio minimo");
    } catch (error) {
       console.error('Error al obtener las credenciales:', error);
    }
