@@ -58,7 +58,7 @@ const fetchParticipations = async () => {
     }
 
     try {
-        const response = await axios.get('https://tu-proyecto.vercel.app/marketplace-participations', {
+        const response = await axios.get('https://amazon-backend-tau.vercel.app/marketplace-participations', {
             headers: {
                 'x-amz-access-token': token,
             },
