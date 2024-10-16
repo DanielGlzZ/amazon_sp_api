@@ -49,21 +49,28 @@ const getMarketPlaceParticipaciones = async () => {
    }
 }
 */
-const fetchParticipations = async () => {
-      const token = sessionStorage.getItem('access_token'); // Obtén el token de donde lo guardaste
+const fetchParticipations = async () => { 
+    const token = sessionStorage.getItem('access_token'); // Obtén el token de donde lo guardaste
 
-      try {
+    if (!token) {
+        console.error('Access token is missing');
+        return; // Salir si el token no está disponible
+    }
+
+    try {
         const response = await axios.get('https://tu-proyecto.vercel.app/marketplace-participations', {
-          headers: {
-            'x-amz-access-token': token,
-          },
+            headers: {
+                'x-amz-access-token': token,
+            },
         });
-         this.participations = response.data; // Guarda la respuesta en el estado
-         console.log(response);
-      } catch (error) {
+        this.participations = response.data; // Guarda la respuesta en el estado
+        console.log(response);
+    } catch (error) {
         console.error('Error al obtener participaciones:', error);
-      }
+        // Aquí podrías manejar el error de una manera más amigable para el usuario
+    }
 }
+
 onMounted(async () => {
    await authAmazon();
 });
