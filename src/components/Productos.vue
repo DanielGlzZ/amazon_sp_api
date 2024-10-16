@@ -36,11 +36,13 @@ const authAmazon = async () => {
 
 const getMarketPlaceParticipaciones = async () => {
    try {
+      const token = sessionStorage.getItem("access_token");
       const response = await axios.get('https://sellingpartnerapi-na.amazon.com/sellers/v1/marketplaceParticipations', {
          headers: {
-            'Host': 'sellingpartnerapi-na.amazon.com',
-            'x-amz-access-token': sessionStorage.getItem("access_token"),
-            'Authorization': `Bearer ${sessionStorage.getItem("access_token")}`
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'x-amz-access-token': token,
+            'Authorization': `Bearer ${token}`
          }
       });
       console.log(response.data);
