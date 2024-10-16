@@ -63,7 +63,6 @@ const fetchParticipations = async () => {
                 'x-amz-access-token': token,
             },
         });
-        this.participations = response.data; // Guarda la respuesta en el estado
         console.log(response);
     } catch (error) {
         console.error('Error al obtener participaciones:', error);
