@@ -11,6 +11,7 @@ module.exports = {
    rules: {
       //'vue/name-property-casing': ['error', 'PascalCase'],
       'no-undef': 'error',
-      'vue/multi-word-component-names': 'off'
+      'vue/multi-word-component-names': 'off',
+      'no-unused-vars': 'off'
    }
 };

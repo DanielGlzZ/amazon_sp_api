@@ -6,14 +6,11 @@
 
 <script setup>
 import axios from 'axios';
-import { useRoute } from 'vue-router';
 import { ref, onMounted } from 'vue';
 
-const route = useRoute();
 const clientId = ref(process.env.VUE_APP_CLIENT_ID); 
 const clientSecret = ref(process.env.VUE_APP_SECRET_KEY);
 const refreshToken = ref(process.env.VUE_APP_REFRESH_TOKEN);
-const redirectUri = 'https://amazon-sp-api-sand.vercel.app/productos';
 
 const authAmazon = async () => {
    const params = new URLSearchParams();
@@ -28,45 +25,30 @@ const authAmazon = async () => {
             'Content-Type': 'application/x-www-form-urlencoded'
          }
       });
-      console.log(response.data); 
-      console.log("Cambio minimo");
+      const { access_token, refresh_token } = response.data;
+      sessionStorage.setItem("access_token", access_token);
+      sessionStorage.setItem("refresh_token", refresh_token);
    } catch (error) {
       console.error('Error al obtener las credenciales:', error);
    }
 };
 
-onMounted(async () => {
-   //await fetchCredentials();
-   await authAmazon();
-   let code;  // Captura el código de la URL
-   if (route.query.code) {
-      code = route.query.code;
-      console.log('Código recibido:', code);
-      exchangeCodeForToken(code);
-   } else {
-      console.log('No se recibió un código.');
-   }
-});
-
-const exchangeCodeForToken = async (authCode) => {
-   const tokenUrl = 'https://api.amazon.com/auth/o2/token';
-
-   const data = new URLSearchParams();
-   data.append('grant_type', 'authorization_code');
-   data.append('code', authCode);
-   data.append('client_id', clientId.value);
-   data.append('client_secret', clientSecret.value);
-   data.append('redirect_uri', redirectUri);
-
+const getMarketPlaceParticipaciones = async () => {
    try {
-      const response = await axios.post(tokenUrl, data);
-      const { access_token, refresh_token } = response.data;
-      sessionStorage.setItem("access_token", access_token);
-      sessionStorage.setItem("refresh_token", refresh_token);
+      const response = await axios.get('https://api.amazon.com/sellers/v1/marketplaceParticipaciones', {
+         headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+         }
+      });
+      console.log(response.data);
    } catch (error) {
-      console.error('Error obteniendo tokens:', error);
+      console.error('Error al obtener las credenciales:', error);
    }
-};
+}
+
+onMounted(async () => {
+   await authAmazon();
+});
 </script>
 
 <style scoped lang="scss">
