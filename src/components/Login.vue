@@ -1,7 +1,7 @@
 <template>
    <div class="container">
       <div class="align-column">
-         <form @submit.prevent="redirectToAmazon" class="align-column-div">
+         <form @submit.prevent="AutorizarAmazon" class="align-column-div">
             <h1>Ingresar con Amazon</h1>
             <button type="submit" class="button-7">Autorizar</button>
          </form>
@@ -11,32 +11,12 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-const clientId = ref(process.env.VUE_APP_CLIENT_ID); // Almacenará el Client ID recibido del servidor
-const redirectUri = 'https://amazon-sp-api-sand.vercel.app/productos'; 
-const scope = 'profile'; // Ajusta el scope según tus necesidades
+const router = useRouter();
 
-// Función para obtener las credenciales del servidor
-/*const fetchCredentials = async () => {
-   try {
-      const response = await axios.get('http://localhost:3000/credenciales'); // Cambia la URL según sea necesario
-      clientId.value = response.data.clientID; // Asigna el Client ID recibido
-      clientSecret.value = response.data.clientSecret;
-   } catch (error) {
-      console.error('Error al obtener las credenciales:', error);
-   }
-};*/
-
-// Llama a fetchCredentials cuando el componente se monte
-/*onMounted(async () => {
-   await fetchCredentials();
-});*/
-
-const redirectToAmazon = () => {
-   const authUrl = `https://sellercentral.amazon.com/apps/authorize/consent?application_id=${
-      clientId.value
-   }&redirect_uri=${encodeURIComponent(redirectUri)}&scope=${scope}`;
-   window.location.href = authUrl;
+const AutorizarAmazon = () => {
+   router.push('/productos');
 };
 </script>
 
