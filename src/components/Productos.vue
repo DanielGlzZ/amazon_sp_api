@@ -34,29 +34,26 @@ const authAmazon = async () => {
    }
 };
 
+const apiClient = axios.create({
+   baseURL: 'https://sellingpartnerapi-na.amazon.com',
+   headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+   }
+});
+
+// Usar la instancia
 const getMarketPlaceParticipaciones = async () => {
    try {
       const token = sessionStorage.getItem("access_token");
-      const response = await axios.get('https://sellingpartnerapi-na.amazon.com/sellers/v1/marketplaceParticipations', {
+      const response = await apiClient.get('/sellers/v1/marketplaceParticipations', {
          headers: {
-            'Host': 'sellingpartnerapi-na.amazon.com',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
             'x-amz-access-token': token,
-            'Authorization': `Bearer ${token}`
          }
       });
       console.log(response.data);
-   }
-   catch (error) {
-      if (error.response) {
-         console.error('Error de respuesta:', error.response.data);
-         console.error('Código de estado:', error.response.status);
-      } else if (error.request) {
-         console.error('No se recibió respuesta:', error.request);
-      } else {
-         console.error('Error al configurar la solicitud:', error.message);
-      }
+   } catch (error) {
+      console.error('Error al obtener las credenciales:', error);
    }
 }
 
