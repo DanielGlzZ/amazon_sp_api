@@ -34,19 +34,10 @@ const authAmazon = async () => {
    }
 };
 
-const apiClient = axios.create({
-   baseURL: 'https://sellingpartnerapi-na.amazon.com',
-   headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-   }
-});
-
-// Usar la instancia
 const getMarketPlaceParticipaciones = async () => {
    try {
       const token = sessionStorage.getItem("access_token");
-      const response = await apiClient.get('/sellers/v1/marketplaceParticipations', {
+      const response = await axios.get('https://sellingpartnerapi-na.amazon.com/sellers/v1/marketplaceParticipations', {
          headers: {
             'x-amz-access-token': token,
          }
