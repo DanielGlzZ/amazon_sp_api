@@ -1,6 +1,7 @@
 <template>
    <div>
       <h1>SandBox Amazon SP API</h1>
+      <button @click="getMarketPlaceParticipaciones">getMarketPlaceParticipaciones</button>
    </div>
 </template>
 
