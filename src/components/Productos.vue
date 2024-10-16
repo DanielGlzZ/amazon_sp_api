@@ -36,7 +36,7 @@ const authAmazon = async () => {
 
 const getMarketPlaceParticipaciones = async () => {
    try {
-      const response = await axios.get('https://sellingpartnerapi-na.amazon.com/sellers/v1/marketplaceParticipaciones', {
+      const response = await axios.get('https://sellingpartnerapi-na.amazon.com/sellers/v1/marketplaceParticipations', {
          headers: {
             'Content-Type': 'application/json',
             'x-amz-access-token': `Bearer ${sessionStorage.getItem("access_token")}` 
