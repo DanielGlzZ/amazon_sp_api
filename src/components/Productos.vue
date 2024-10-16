@@ -38,7 +38,7 @@ const getMarketPlaceParticipaciones = async () => {
    try {
       const response = await axios.get('https://sellingpartnerapi-na.amazon.com/sellers/v1/marketplaceParticipaciones', {
          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
             'x-amz-access-token': sessionStorage.getItem("access_token")
          }
       });
