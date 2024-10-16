@@ -1,7 +1,7 @@
 <template>
    <div>
       <h1>SandBox Amazon SP API</h1>
-      <button @click="getMarketPlaceParticipaciones">getMarketPlaceParticipaciones</button>
+      <button @click="fetchParticipations">getMarketPlaceParticipaciones</button>
    </div>
 </template>
 
@@ -34,6 +34,7 @@ const authAmazon = async () => {
    }
 };
 
+/*
 const getMarketPlaceParticipaciones = async () => {
    try {
       const token = sessionStorage.getItem("access_token");
@@ -47,7 +48,22 @@ const getMarketPlaceParticipaciones = async () => {
       console.error('Error al obtener las credenciales:', error);
    }
 }
+*/
+const fetchParticipations = async () => {
+      const token = sessionStorage.getItem('access_token'); // Obtén el token de donde lo guardaste
 
+      try {
+        const response = await axios.get('https://tu-proyecto.vercel.app/marketplace-participations', {
+          headers: {
+            'x-amz-access-token': token,
+          },
+        });
+         this.participations = response.data; // Guarda la respuesta en el estado
+         console.log(response);
+      } catch (error) {
+        console.error('Error al obtener participaciones:', error);
+      }
+}
 onMounted(async () => {
    await authAmazon();
 });
